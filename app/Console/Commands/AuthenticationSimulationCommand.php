@@ -28,8 +28,8 @@ class AuthenticationSimulationCommand extends Command
         $concurrent = $this->option('concurrent');
 
         // Validate algorithm
-        if (!in_array($algorithm, ['bcrypt', 'argon2id', 'argon2i'])) {
-            $this->error("Invalid algorithm. Please use bcrypt, argon2id, or argon2i.");
+        if (!in_array($algorithm, ['bcrypt', 'argon2id'])) {
+            $this->error("Invalid algorithm. Please use bcrypt or argon2id.");
             return Command::FAILURE;
         }
 

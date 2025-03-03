@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 class ResourceMonitorCommand extends Command
 {
     protected $signature = 'hash:resource-test
-                            {algorithm=bcrypt : The hashing algorithm to test (bcrypt, argon2id, argon2i)}
+                            {algorithm=bcrypt : The hashing algorithm to test (bcrypt, argon2id)}
                             {--duration=60 : Duration of the test in seconds}
                             {--users=1000 : Number of user passwords to hash}';
 
@@ -26,8 +26,8 @@ class ResourceMonitorCommand extends Command
         $userCount = $this->option('users');
         
         // Validate algorithm
-        if (!in_array($algorithm, ['bcrypt', 'argon2id', 'argon2i'])) {
-            $this->error("Invalid algorithm. Please choose bcrypt, argon2id, or argon2i.");
+        if (!in_array($algorithm, ['bcrypt', 'argon2id'])) {
+            $this->error("Invalid algorithm. Please choose bcrypt or argon2id.");
             return Command::FAILURE;
         }
         

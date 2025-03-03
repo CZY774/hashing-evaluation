@@ -14,7 +14,7 @@ class HashingBenchmarkCommand extends Command
 
     protected $description = 'Benchmark different password hashing algorithms in Laravel';
 
-    // Konfigurasi untuk ketiga algoritma
+    // Konfigurasi untuk algoritma yang didukung
     protected $configs = [
         'bcrypt' => [
             'default' => ['rounds' => 10],
@@ -30,13 +30,7 @@ class HashingBenchmarkCommand extends Command
                 ['memory' => 2048, 'time' => 2, 'threads' => 2],
             ]
         ],
-        'argon2i' => [
-            'default' => ['memory' => 1024, 'time' => 2, 'threads' => 2],
-            'variations' => [
-                ['memory' => 1024, 'time' => 4, 'threads' => 2],
-                ['memory' => 2048, 'time' => 2, 'threads' => 2],
-            ]
-        ],
+        // Hapus argon2i karena tidak didukung di Laravel 12
     ];
 
     protected $results = [];
