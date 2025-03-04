@@ -17,10 +17,10 @@ class HashingBenchmarkCommand extends Command
     // Konfigurasi untuk algoritma yang didukung
     protected $configs = [
         'bcrypt' => [
-            'default' => ['rounds' => 10],
+            'default' => ['rounds' => 12],
             'variations' => [
                 ['rounds' => 8],
-                ['rounds' => 12],
+                ['rounds' => 10],
             ]
         ],
         'argon2id' => [
