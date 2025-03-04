@@ -122,12 +122,18 @@ class ResourceMonitorCommand extends Command
         $memory = memory_get_usage();
         $peakMemory = memory_get_peak_usage();
         
-        // Get CPU usage if possible
-        $cpuUsage = null;
-        if (function_exists('sys_getloadavg')) {
-            $load = sys_getloadavg();
-            $cpuUsage = $load[0];
-        }
+        // Get CPU usage in Windows
+        // $cpuUsage = trim(shell_exec("wmic cpu get loadpercentage /value"));
+        // preg_match('/\d+/', $cpuUsage, $matches);
+        // $cpuUsage = isset($matches[0]) ? (float) $matches[0] : 0;
+
+        $cpuUsage = trim(shell_exec('powershell -command "Get-Counter \'\\Processor(_Total)\\% Processor Time\' | Select-Object -ExpandProperty CounterSamples | Select-Object -ExpandProperty CookedValue"'));
+        file_put_contents(storage_path('logs/cpu_usage.log'), "Raw Output: " . $cpuUsage . PHP_EOL, FILE_APPEND);
+        preg_match('/\d+/', $cpuUsage, $matches);
+        $cpuUsage = isset($matches[0]) ? (float) $matches[0] : 0;
+        file_put_contents(storage_path('logs/cpu_usage.log'), "Parsed CPU Usage: " . $cpuUsage . PHP_EOL, FILE_APPEND);
+
+
         
         $this->resourceData[] = [
             'timestamp' => number_format($timestamp, 2),

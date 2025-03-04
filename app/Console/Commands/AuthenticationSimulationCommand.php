@@ -1,5 +1,6 @@
 <?php
-
+// TODO: First test never succeeds.
+// XAMPP error, access denied
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
